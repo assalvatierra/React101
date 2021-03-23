@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter, Link, Switch, Route } from 'react-router-dom';
 
 import CarAdd from './CarAdd';
+import CarEdit from './CarEdit';
 
 export default function Navi(){
     return(
@@ -10,13 +11,18 @@ export default function Navi(){
             <ul>
                 <li><Link to='/list'>List</Link></li>
                 <li><Link to='/Add/20'>Add</Link></li>
-                <li><Link to='/Edit'>Edit</Link></li>
+                <li><Link to='/Edit/21'>Edit</Link></li>
             </ul>
         </div>
         <Switch>
-            <Route path='/List' render={MenuCarList}></Route>
-            <Route path='/Add:id' render={(props)=>MenuCarAdd(props.match.params.id)} />
-            <Route path='/Edit'><MenuCarEdit /></Route>
+            <Route exact path='/List' render={MenuCarList}></Route>
+            <Route exact path='/Add/:id' render={(props)=>
+                <CarAdd typeid={props.match.params.id}/>
+                } />
+            <Route exact path='/Edit/:id' render={(props)=>
+                <CarEdit id={props.match.params.id} />
+
+                } />
 
         </Switch>
         </BrowserRouter>
@@ -31,9 +37,9 @@ function MenuCarList(){
     );
 }
 
-function MenuCarAdd(typeid){
+function MenuCarAdd(){
     return(
-        <h1>Car Add : {typeid} </h1>
+        <h1>Car Add</h1>
     );
 }
 
