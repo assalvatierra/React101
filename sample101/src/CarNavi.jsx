@@ -3,6 +3,7 @@ import {BrowserRouter, Link, Switch, Route } from 'react-router-dom';
 
 import CarAdd from './CarAdd';
 import CarEdit from './CarEdit';
+import CarList from './CarList';
 
 export default function Navi(){
     return(
@@ -15,7 +16,7 @@ export default function Navi(){
             </ul>
         </div>
         <Switch>
-            <Route exact path='/List' render={MenuCarList}></Route>
+            <Route exact path='/List' render={()=><CarList />}></Route>
             <Route exact path='/Add/:id' render={(props)=>
                 <CarAdd typeid={props.match.params.id}/>
                 } />
