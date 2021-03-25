@@ -5,13 +5,14 @@ class CarListClass extends React.Component{
         super(props);
 
         this.state = { data:[], isReady:false};
+        //this.renderDataTable = this.renderDataTable.bind(this);
     }
 
     componentDidMount(){
         this.getCarList()
         .then(
             res=>{
-                console.log(res);
+                console.log("componentDidMount:" + res);
                 this.setState({data:res, isReady:true})
             }
         ).catch(
@@ -23,16 +24,46 @@ class CarListClass extends React.Component{
     }
 
     async getCarList(){
-        const sUrl = "https://localhost:49161/WeatherForecast";
+        const sUrl = "https://localhost:44337/WeatherForecast";
         const response = await fetch(sUrl);
         //const _data = await response.json();
-        //console.log(_data);
+        //console.log("getCarList:" + _data);
         return response.json();
+    }
+
+    static renderDataTable(_data)
+    {
+        console.log("renderDataTable:" + _data);
+        return(
+            <table>
+                <thead>
+                    <tr>
+                        <td>Date</td>
+                        <td>TempC</td>
+                        <td>TempF</td>
+                        <td>Summary</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {   _data.map( d=> 
+                        <tr key={d.date}>
+                            <td>{d.date}</td>
+                            <td>{d.temperatureC}</td>
+                            <td>{d.temperatureF}</td>
+                            <td>{d.summary}</td>
+                        </tr>
+                    )
+
+                    }
+                </tbody>
+            </table>
+
+        );
     }
 
     render(){
         
-        let datatable = (this.state.isReady ? <p>Ready</p> : <p>Loading</p>);
+        let datatable = (this.state.isReady ? CarListClass.renderDataTable(this.state.data) : <p>Loading</p>);
         return(
             <div>
             <h1>Car List class</h1>    
