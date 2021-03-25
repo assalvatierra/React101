@@ -3,6 +3,8 @@ import React from 'react';
 class CarListClass extends React.Component{
     constructor(props){
         super(props);
+
+        this.state = { data:[], isReady:false};
     }
 
     componentDidMount(){
@@ -10,6 +12,7 @@ class CarListClass extends React.Component{
         .then(
             res=>{
                 console.log(res);
+                this.setState({data:res, isReady:true})
             }
         ).catch(
             err=>{
@@ -20,16 +23,16 @@ class CarListClass extends React.Component{
     }
 
     async getCarList(){
-        const sUrl = "https://127.0.0.11:49157/WeatherForecast";
+        const sUrl = "https://localhost:49161/WeatherForecast";
         const response = await fetch(sUrl);
-       // const _data = await response.json();
+        //const _data = await response.json();
         //console.log(_data);
         return response.json();
     }
 
     render(){
-        const isready = true;
-        let datatable = (isready ? <p>Ready</p> : <p>Loading</p>);
+        
+        let datatable = (this.state.isReady ? <p>Ready</p> : <p>Loading</p>);
         return(
             <div>
             <h1>Car List class</h1>    
