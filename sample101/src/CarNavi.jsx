@@ -24,7 +24,7 @@ export default function Navi(){
                 <CarEdit id={props.match.params.id} />
 
                 } />
-
+  
         </Switch>
         </BrowserRouter>
 
@@ -40,12 +40,12 @@ function MenuCarList(){
 
 function MenuCarAdd(){
     return(
-        <h1>Car Add</h1>
+        <h1>Car Add.</h1>
     );
 }
 
 function MenuCarEdit(){
     return(
-        <h1>Car Edit</h1>
+        <h1>Car Edit </h1>
     );
 }
