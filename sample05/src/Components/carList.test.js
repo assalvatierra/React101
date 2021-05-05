@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import pretty from 'pretty';
 import CarList from './carList';
 
 let container = null;
@@ -32,6 +33,10 @@ it('render car list', async() => {
 
     expect(container.textContent).toContain('abel');
     expect(container.textContent).toContain('elvie');
+
+    expect(
+        pretty(container.innerHTML)
+    ).toMatchSnapshot();
 
     global.fetch.mockRestore();
 

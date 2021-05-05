@@ -13,7 +13,7 @@ class CarList extends React.Component{
 
     async getData()
     {
-        const response = await fetch("http://localhost:123");
+        const response = await fetch("https://localhost:44382/api/mycars");
         const _data = await response.json();
         this.setState({
             data: _data, 
@@ -43,7 +43,7 @@ class CarList extends React.Component{
 
     render(){
         let htmlform = this.state.isReady ?
-            <div> CarList.datatohtml(this.state.data) </div> : 
+            CarList.datatohtml(this.state.data): 
             <div><p>Not ready</p></div>;
         return(
             <div>{htmlform}</div>

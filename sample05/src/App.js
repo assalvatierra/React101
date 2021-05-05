@@ -1,6 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import Navi from './Navi';
+import CarList from './Components/carList';
 
 function App() {
   return (
@@ -9,6 +9,11 @@ function App() {
         Learn React
         <Navi />
       </header>
+
+      <div>
+        <h1>Car List</h1>
+        <CarList />
+      </div>
     </div>
   );
 }

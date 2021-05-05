@@ -1,10 +1,12 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using WebApp05.Data;
 
 namespace WebApp05
 {
@@ -28,6 +30,11 @@ namespace WebApp05
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddCors();
+
+            services.AddDbContext<WebApp05Context>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WebApp05Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +50,13 @@ namespace WebApp05
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(builder =>
+           {
+               builder.AllowAnyMethod()
+               .AllowAnyOrigin()
+               .AllowAnyHeader();
+           });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
